@@ -15,24 +15,3 @@
 #include <mavros_msgs/CommandBool.h>
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/State.h>
-
-double kp=0.7; 
-double ki=0.2; 
-double kd=0.0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -46,14 +46,12 @@ public:
                 else
                 {
                     i=i;
-                    num=1;
+                    num=3;
                 }
-
+            }
             f_num.data=num;
 
             formation_num_pub.publish(f_num);
-
-            }
         
             ros::spinOnce();
             rate.sleep();

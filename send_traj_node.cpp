@@ -127,10 +127,10 @@ public:
         gpose3.pose.position.y=current_pose_3.pose.position.y;
         gpose3.pose.position.z=current_pose_3.pose.position.z;
 
-        double fm[2][4][3]= {   {{0,0,0},{-2.5,-2,0},{-2.5,2,0},{2.5,0,0}},
-                                {{0,0,0},{0,-2,0},{0,-1,0},{5,-3,0}}
-                                
-                             };
+        double fm[3][4][3]= {   {{0,0,0},{-2.5,-2,0},{-2.5,2,0},{2.5,0,0}},
+                                {{0,0,2},{0,-2,2},{0,-1,2},{5,-3,2}},
+                                {{3,2,1},{0,-3,1},{3,3,1},{5,-2,1}}
+                            };
 
         while (ros::ok()) 
         {
@@ -138,7 +138,7 @@ public:
             {
                 for(int i = 0; i < 15; ++i)
                 {  
-                    if(x_r<35)
+                    if(x_r<36) //3min
                     {
                         x_r = temp_x + 0.02 * i;
                         y_r = 3 * sin(2 * M_PI / 5 * x_r);
@@ -214,6 +214,36 @@ public:
                         ref_path_3_msg.header.stamp = ros::Time::now();
                         ref_path_3_msg.poses.emplace_back(refpoint3);
                     }
+                    else if(f_num.data==3)
+                    {
+                        refpoint0.pose.position.x=x_r+fm[2][0][0];
+                        refpoint0.pose.position.y=y_r+fm[2][0][1];
+                        refpoint0.pose.position.z=2.0+fm[2][0][2];
+
+                        refpoint1.pose.position.x=x_r+fm[2][1][0];
+                        refpoint1.pose.position.y=y_r+5+fm[2][1][1];
+                        refpoint1.pose.position.z=2.0+fm[2][1][2];
+
+                        refpoint2.pose.position.x=x_r+fm[2][2][0];
+                        refpoint2.pose.position.y=y_r-5+fm[2][2][1];
+                        refpoint2.pose.position.z=2.0+fm[2][2][2];
+
+                        refpoint3.pose.position.x=x_r-5+fm[2][3][0];
+                        refpoint3.pose.position.y=y_r+fm[2][3][1];
+                        refpoint3.pose.position.z=2.0+fm[2][3][2];
+
+                        ref_path_0_msg.header.stamp = ros::Time::now();
+                        ref_path_0_msg.poses.emplace_back(refpoint0);
+
+                        ref_path_1_msg.header.stamp = ros::Time::now();
+                        ref_path_1_msg.poses.emplace_back(refpoint1);
+
+                        ref_path_2_msg.header.stamp = ros::Time::now();
+                        ref_path_2_msg.poses.emplace_back(refpoint2);
+
+                        ref_path_3_msg.header.stamp = ros::Time::now();
+                        ref_path_3_msg.poses.emplace_back(refpoint3);
+                    }
                 }
             }
             else
@@ -245,7 +275,7 @@ public:
 
                 ref_path_3_msg.header.stamp = ros::Time::now();
                 ref_path_3_msg.poses.emplace_back(refpoint3);
-            }
+            } 
             gpose1.pose.position.x=current_pose_1.pose.position.x;
             gpose1.pose.position.y=current_pose_1.pose.position.y+5;
             gpose1.pose.position.z=current_pose_1.pose.position.z;
